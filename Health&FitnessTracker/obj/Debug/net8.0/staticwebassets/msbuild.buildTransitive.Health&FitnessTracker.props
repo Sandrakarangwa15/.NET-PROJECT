@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\buildMultiTargeting\Health&amp;FitnessTracker.props" />
+</Project>

@@ -1,0 +1,189 @@
+﻿@page
+@model Health_FitnessTracker.Pages.ProfileSetupModel
+@{
+    ViewData["Title"] = "Profile Setup";
+}
+
+<div class="profile-setup-container">
+    <h2 class="profile-setup-title">Complete Your Profile</h2>
+
+    <div class="alert-container">
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success">
+                @TempData["SuccessMessage"]
+            </div>
+        }
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-error">
+                @TempData["ErrorMessage"]
+            </div>
+        }
+    </div>
+
+    <form method="post" class="profile-form">
+        <div class="form-group">
+            <label for="Height" class="form-label">Height (cm):</label>
+            <input type="number" id="Height" class="form-input" asp-for="Height" required placeholder="Enter your height in cm" />
+        </div>
+
+        <div class="form-group">
+            <label for="Weight" class="form-label">Weight (kg):</label>
+            <input type="number" id="Weight" class="form-input" asp-for="Weight" required placeholder="Enter your weight in kg" />
+        </div>
+
+        <div class="form-group">
+            <label for="FitnessGoal" class="form-label">Fitness Goal:</label>
+            <select id="FitnessGoal" class="form-input" asp-for="FitnessGoal" required>
+                <option value="">Select a goal</option>
+                <option value="Lose Weight">Lose Weight</option>
+                <option value="Maintain Weight">Maintain Weight</option>
+                <option value="Gain Muscle">Gain Muscle</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn-submit">Save Profile</button>
+    </form>
+
+    @if (Model.BMI > 0)
+    {
+        <div id="recommendationsSection" class="recommendations show">
+            <h3 class="recommendations-title">Personalized Recommendations</h3>
+            <textarea class="form-input recommendations-text" readonly>@Model.Recommendations</textarea>
+        </div>
+    }
+</div>
+
+@section Styles {
+    <style>
+        /* Container styles */
+        .profile-setup-container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 30px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        /* Header styles */
+        .profile-setup-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        /* Alert styles */
+        .alert-container {
+            margin-bottom: 20px;
+        }
+
+        .alert {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .alert-success {
+            background-color: #28a745;
+            color: white;
+            border-left: 5px solid #218838;
+        }
+
+        .alert-error {
+            background-color: #dc3545;
+            color: white;
+            border-left: 5px solid #c82333;
+        }
+
+        /* Form input styles */
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: #555;
+            margin-bottom: 8px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            color: #333;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+        }
+
+            .form-input:focus {
+                border-color: #007bff;
+                outline: none;
+            }
+
+        /* Submit button styles */
+        .btn-submit {
+            width: 100%;
+            padding: 14px;
+            background-color: #6f42c1;
+            color: white;
+            font-size: 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+            .btn-submit:hover {
+                background-color: #5a32a3;
+            }
+
+        /* Recommendations section */
+        .recommendations {
+            display: none;
+            margin-top: 30px;
+            transition: all 0.3s ease-in-out;
+        }
+
+            .recommendations.show {
+                display: block;
+            }
+
+        .recommendations-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 12px;
+        }
+
+        .recommendations-text {
+            width: 100%;
+            height: 180px;
+            padding: 15px;
+            font-size: 16px;
+            color: #444;
+            background-color: #f4f4f4;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            resize: none;
+            transition: background-color 0.3s ease;
+        }
+
+            .recommendations-text:focus {
+                background-color: #fff;
+                border-color: #007bff;
+            }
+
+    </style>
+}
